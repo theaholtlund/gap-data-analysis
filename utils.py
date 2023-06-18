@@ -6,6 +6,7 @@ from pathlib import Path
 from github import Github
 
 # Define function to authorise a user with their GitHub token
+# Code inspired by fingolfin, gap-system: https://github.com/gap-system/gap/blob/master/dev/releases/utils.py
 def get_github_token():
     token_file_path = os.path.expanduser('~/.github_token')
 
