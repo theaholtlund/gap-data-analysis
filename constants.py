@@ -7,4 +7,8 @@ from github import Github
 from config import *
 
 # Constants for organisation
-ORG_NAME = "gap-packages"
+ORG_NAME_PACKAGES = "gap-packages"
+ORG_NAME_SYSTEM = "gap-system"
+
+# Constants for repositories
+DISTRO_REPO = "PackageDistro"
