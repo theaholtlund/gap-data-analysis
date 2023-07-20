@@ -4,8 +4,8 @@ This framework is created with the aim of providing a useful tool to individuals
 
 ## Installation
 
-The program requires Python.
+The program requires Python. Using the visualisation module also requires NetworkX.
 
 ## Usage
 
-Save the GitHub token in a hidden file with the name `.github_token` in your home directory.
+Save the GitHub token in a hidden file with the name `~/.github_shell_token` in your home directory.

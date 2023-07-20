@@ -23,7 +23,7 @@ def get_github_token() -> str:
         This code was inspired by fingolfin's implementation in the gap-system repository:
         https://github.com/gap-system/gap/blob/master/dev/releases/utils.py
     """
-    token_file_path = os.path.expanduser('~/.github_token')
+    token_file_path = os.path.expanduser('~/.github_shell_token')
 
     try:
         with open(token_file_path, 'r') as token_file:
