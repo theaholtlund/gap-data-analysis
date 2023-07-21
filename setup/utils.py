@@ -33,4 +33,3 @@ def get_github_token() -> str:
         print(f"GitHub token file does not exist in '{token_file_path}'.")
     except Exception as exception:
         print(f"Error reading GitHub token file: {str(exception)}")
-
