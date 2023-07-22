@@ -22,10 +22,9 @@ def wait_until_reset(reset_time: str) -> None:
     Returns:
         None        
     """
-    current_time = datetime.now()
-    reset_time = datetime.strptime(reset_time, '%Y-%m-%d %H:%M:%S')
 
     # Calculate the time difference between current time and reset time
+    current_time = datetime.now()
     time_difference = reset_time - current_time
 
     # Sleep only if the reset time is in the future
