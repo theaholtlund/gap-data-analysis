@@ -30,5 +30,6 @@ def wait_until_reset(reset_time: str) -> None:
     # Sleep only if the reset time is in the future
     if time_difference.total_seconds() > 0:
         sleep_time = time_difference.total_seconds()
-        print(f"Reached GitHub API rate limit. Sleeping for {sleep_time} seconds until the limit resets.")
+        sleep_time_minutes = sleep_time / 60
+        print(f"Reached GitHub API rate limit. Sleeping for {sleep_time_minutes} seconds until the limit resets.")
         time.sleep(sleep_time)
