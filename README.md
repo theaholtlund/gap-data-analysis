@@ -38,12 +38,16 @@ With the project opened in your preferred IDE or Jupyter Notebook environment, i
 ## Running the Framework with Docker
 
 - To run the framework usiong Docker, you first need to install Docker on your system if you have not already done so. Docker can be downloaded and installed from the [Docker Website](https://www.docker.com/get-started/).
+- Additionally, the GitHub token must be stored in the project, as it will not be accessible from the home directory when using Docker. An `.env` file has already been added to the project, and to the .gitignore file to ensure it is not accidentally added to any Git repositories, as this is sensitive data that should be kept private and protected like a password. In the file, add your GitHub token by adding the following code in the file and saving it, replacing _YOUR_GITHUB_TOKEN_ with the actual GitHub token:
+  > `GITHUB_TOKEN=YOUR_GITHUB_TOKEN`
 - The project directory already contains a Docker file, which can be used to create a Docker image. Once the repository is clones to your local machine, you can build the Docker image using the following command in the terminal:
   > `docker build -t gap_data_analysis .`
 - Having created the Docker image, you can access the program as a Docker container by running the following command in the terminal:
-  > `docker run -p 8888:8888 gap_data_analysis`
+  > `docker run -p 8888:8888 --env-file .env gap_data_analysis`
 - Running this will initiate a Docker container mapped to the JupyterLab environment, accessible from port 8888 on the local host machine. The link to open the the JupyterLab in your web browser can be found in the terminal.
-- Terminating the container environment in JupyterLab can be done by using the `Ctrl+C` keys, or by running the following command in the terminal, replacing the _container_id_ with the actual container_id of the container:
+- All running containers, along with the conatiner's name and id, can be found by running the following command in the terminal:
+  > `docker ps`
+- Terminating the container environment in JupyterLab can be done by using the `Ctrl+C` keys, or by running the following command in the terminal, replacing the _container_id_ with the actual id of the container:
   > `docker stop container_id`
 
 ## Additional Documentation
