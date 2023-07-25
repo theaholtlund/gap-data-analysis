@@ -1,3 +1,4 @@
 .DS_Store
+.dockerignore
 __pycache__/
 notebooks/collected_data/
