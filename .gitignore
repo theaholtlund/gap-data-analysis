@@ -2,4 +2,5 @@
 .env
 .dockerignore
 __pycache__/
-notebooks/collected_data/
+notebooks/collected_data/*
+!notebooks/collected_data/README.md
