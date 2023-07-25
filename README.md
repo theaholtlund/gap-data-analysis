@@ -4,19 +4,22 @@
 
 This project is completed as part of the CS5099: Dissertation in Computer Science module with the University of St Andrews, with Dr. Olexandr Konovalov supervising the project. The framework is created with the aim of providing a useful tool to individuals interested in the developments, distribution and community of GAP - a programming language concerned with computational discrete algebra.
 
+## Prerequisites
+
+- The program requires Python version 3.8 or higher.
+- Running the program also requires Jupyter Notebook.
+- Using the framework requires a GitHub token. To retrieve data, generate a personal token from within your [GitHub Tokens settings](https://github.com/settings/tokens).
+- Make sure the GitHub token is saved in a hidden file with the name `~/.github_shell_token` in your home directory.
+
 ## Installation
 
-- The program requires Python. All required libraries can be installed through the requirements.txt file, by running the following command in the terminal:
-  > `pip install -r requirements.txt`
-- Using the framework requires a GitHub token. To retrieve data, generate a personal token from within your [GitHub Tokens settings](https://github.com/settings/tokens).
+1. Clone the code repository to your local machine.
+2. Install required libraries by running the following command in the terminal:
+   > `pip install -r requirements.txt`
 
 ## Usage
 
-Make sure the GitHub token is saved in a hidden file with the name `~/.github_shell_token` in your home directory. Clone the project to your local directory, and open it in your preferred IDE or Jupyter Notebook environment. The program can also be accessed through Docker, as described further down in this file.
-
-## Framework Contents
-
-The analytical framework is composed of several files and Jupyter Notebooks. To retrieve the data, analyse its contents and visualise key relations, only the notebooks in the _notebooks_ folder. This folder has four files for data retrieval, one for data analysis and one for data visualisation, all named to reflect the order in which they are intended to be executed:
+With the project opened in your preferred IDE or Jupyter Notebook environment, it can be used for computational analysis related to GAP packages. The program can also be executed through Docker, as described further down in this file. The framework is composed of several Python files and Jupyter Notebooks, where the Python files are not intended to be accessed or modified in order to run the program. To retrieve the data, analyse its contents and visualise key relations, only the notebooks in the _notebooks_ folder are needed. This folder has four files for data retrieval, one for data analysis and one for data visualisation, all named to reflect the order in which they are intended to be executed:
 
 1. Date Retrieval:
 
