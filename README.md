@@ -9,3 +9,6 @@ The program requires Python. Using the visualisation module also requires Networ
 ## Usage
 
 Save the GitHub token in a hidden file with the name `~/.github_shell_token` in your home directory.
+
+To use Docker to run the program, run the container through the following command
+$ docker run -p 8888:8888 gap_data_analysis
