@@ -1,5 +1,4 @@
 .DS_Store
-.env
 .dockerignore
 __pycache__/
 notebooks/collected_data/*
