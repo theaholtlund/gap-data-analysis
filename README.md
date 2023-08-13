@@ -38,9 +38,8 @@ With the project opened in your preferred IDE or Jupyter Notebook environment, i
 ## Running the Framework with Docker
 
 - To run the framework usiong Docker, you first need to install Docker on your system if you have not already done so. Docker can be downloaded and installed from the [Docker Website](https://www.docker.com/get-started/).
-- Additionally, the GitHub token must be stored in the project, as it will not be accessible from the home directory when using Docker. An `.env` file has already been added to the project, and to the .gitignore file to ensure it is not accidentally added to any Git repositories, as this is sensitive data that should be kept private and protected like a password. In the file, add your GitHub token by adding the following code in the file and saving it, replacing _YOUR_GITHUB_TOKEN_ with the actual GitHub token:
-  > `GITHUB_TOKEN=YOUR_GITHUB_TOKEN`
-- The project directory already contains a Docker file, which can be used to create a Docker image. Once the repository is clones to your local machine, you can build the Docker image using the following command in the terminal:
+- Additionally, the GitHub token must be stored in the project, as it will not be accessible from the home directory when using Docker. An `.env` file has already been added to the project. If any part of the framework contents are intended to be displayed or shared publicly, the `.env` file and the GitHub token should be hidden, as this is sensitive information that should be kept private and protected like a password. In the file, add the GitHub token by replacing _YOUR_GITHUB_TOKEN_ with the actual GitHub token value:
+- The project directory already contains a Docker file, which can be used to create a Docker image. Once the repository is cloned to your local machine, you can build the Docker image using the following command in the terminal:
   > `docker build -t gap_data_analysis .`
 - Having created the Docker image, you can access the program as a Docker container by running the following command in the terminal:
   > `docker run -p 8888:8888 --env-file .env gap_data_analysis`
