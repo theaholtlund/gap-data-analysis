@@ -27,7 +27,7 @@ def get_github_token() -> str:
     """
     # For Docker, first check if GitHub token is set as environment variable
     github_token = os.environ.get('GITHUB_TOKEN')
-    if github_token:
+    if github_token != 'YOUR_GITHUB_TOKEN':
         return github_token
     
     # If no environment variable, access GitHub token from home dir
