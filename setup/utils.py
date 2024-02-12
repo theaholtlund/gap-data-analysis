@@ -3,6 +3,7 @@
 # Import required libraries and packages
 import os
 import time
+import json
 from pathlib import Path
 from github import Github
 from datetime import datetime
@@ -66,3 +67,17 @@ def wait_until_reset(reset_time: int) -> None:
         sleep_time_minutes = sleep_time / 60
         print(f"Reached GitHub API rate limit. Sleeping for {sleep_time_minutes} minutes until the limit resets.")
         time.sleep(sleep_time)
+
+# Load data from files
+def load_data(file_path: str) -> dict:
+    """Load data from a JSON file.
+
+    Args:
+        file_path (str): The path to the JSON file.
+
+    Returns:
+        dict: The loaded data.
+    """
+    with open(file_path, "r", encoding="utf-8") as file:
+        data = json.load(file)
+    return data
