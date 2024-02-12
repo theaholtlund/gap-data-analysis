@@ -1,12 +1,8 @@
 # Import required modules and libraries
 import streamlit as st
-import json
 
-# Load data
-def load_data(file_path):
-    with open(file_path, "r") as f:
-        data = json.load(f)
-    return data
+# Import modules from other project scripts
+from data_constants import *
 
 # Set up Streamlit dashboard with page navigation
 def main():
