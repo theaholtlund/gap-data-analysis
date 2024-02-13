@@ -19,33 +19,38 @@ This project is completed as part of the CS5099: Dissertation in Computer Scienc
 
 ## Usage
 
-With the project opened in your preferred IDE or Jupyter Notebook environment, it can be used for computational analysis related to GAP packages. The program can also be executed through Docker, as described further down in this file. The framework is composed of several Python files and Jupyter Notebooks, where the Python files are not intended to be accessed or modified in order to run the program. To retrieve the data, analyse its contents and visualise key relations, only the notebooks in the _notebooks_ folder are needed. This folder has four files for data retrieval, one for data analysis and one for data visualisation, all named to reflect the order in which they are intended to be executed:
+Open the project opened in your preferred IDE or Jupyter Notebook environment for computational analysis on GAP packages. The program can also be executed through Docker, as described further down in this file. The framework is composed of several Python files and Jupyter Notebooks, where the Python files are not intended to be accessed or modified in order to run the program. To retrieve the data, analyse its contents and visualise key relations, only the notebooks in the _notebooks_ folder are needed. This folder has four files for data retrieval, one for data analysis and one for data visualisation, all named to reflect the order in which they are intended to be executed:
 
 1. Date Retrieval:
 
-   - 01_get_repo_data.ipynb: This file contains functions to retrieve the necessary data in regards to repository analysis and visualisation. It is concerned with statistical analysis of the individual repositories hosted by GAP on GitHub.
-   - 02_get_monitoring_data.ipynb: This file contains functions to retrieve the necessary data in regards to monitoring the current state of GAP from a distribution and redistribution perspective. It is concerned with metrics related to the GAP package distribution repository on GitHub.
-   - 03_get_testing_data.ipynb: This file contains functions to retrieve the necessary data in regards to tested versions, required version and GitHub Actions for the GAP package repositories. It pulls data on logic, consistency and discrepancies related to GAP versions for the given package.
-   - 04_get_community_data.ipynb: This file contains functions to retrieve the necessary data in regards to the GAP community, retrieving data related to authors, issue submitters and collaboration, investigating trends and interactions.
+- 01_get_repo_data.ipynb: This file contains functions to retrieve the necessary data in regards to repository analysis and visualisation. It is concerned with statistical analysis of the individual repositories hosted by GAP on GitHub.
+- 02_get_monitoring_data.ipynb: This file contains functions to retrieve the necessary data in regards to monitoring the current state of GAP from a distribution and redistribution perspective. It is concerned with metrics related to the GAP package distribution repository on GitHub.
+- 03_get_testing_data.ipynb: This file contains functions to retrieve the necessary data in regards to tested versions, required version and GitHub Actions for the GAP package repositories. It pulls data on logic, consistency and discrepancies related to GAP versions for the given package.
+- 04_get_community_data.ipynb: This file contains functions to retrieve the necessary data in regards to the GAP community, retrieving data related to authors, issue submitters and collaboration, investigating trends and interactions.
 
 2. Data Analysis:
 
-   - 05_data_analysis.ipynb: This file accesses the retrieved data from the _collected_data_ folder, and uses it to output interesting and noteworthy findings. It is primarily concerned with the bigger picture and situations that could be of concern to individuals managing or redistributing GAP.
+- 05*data_analysis.ipynb: This file accesses the retrieved data from the \_collected_data* folder, and uses it to output interesting and noteworthy findings. It is primarily concerned with the bigger picture and situations that could be of concern to individuals managing or redistributing GAP.
 
 3. Data Visualisation:
-   - 06_data_visualisation.ipynb: This file accesses the retrieved data from the _collected_data_ folder, and uses it to visualise key findings in terms of trends and collaboration patterns. It is primarily concerned with data that is better interpreted when visualised, such as volume, contribution frequency and interaction networks.
+
+- 06*data_visualisation.ipynb: This file accesses the retrieved data from the \_collected_data* folder, and uses it to visualise key findings in terms of trends and collaboration patterns. It is primarily concerned with data that is better interpreted when visualised, such as volume, contribution frequency and interaction networks.
+
+4. Interacting with Dashboard:
+
+- To interact woth the project Streamlit dashboard, run the following command in the terminal to start the server:
+  > `streamlit run dashboard.py`
+- Once the Streamlit server is running, you can access the dashboard by opening the URL provided in the terminal.
 
 ## Running the Framework with Docker
 
 - To run the framework usiong Docker, you first need to install Docker on your system if you have not already done so. Docker can be downloaded and installed from the [Docker Website](https://www.docker.com/get-started/).
-- Additionally, the GitHub token must be stored in the project, as it will not be accessible from the home directory when using Docker. An `.env` file has already been added to the project. If any part of the framework contents are intended to be displayed or shared publicly, the `.env` file and the GitHub token should be hidden, as this is sensitive information that should be kept private and protected like a password. In the file, add the GitHub token by replacing _YOUR_GITHUB_TOKEN_ with the actual GitHub token value:
+- Additionally, the GitHub token must be stored in the project, as it will not be accessible from the home directory when using Docker. An `.env` file has already been added to the project. If any part of the framework contents are intended to be displayed or shared publicly, the `.env` file and the GitHub token should be hidden, as this is sensitive information that should be protected like a password. In the file, add the GitHub token by replacing _YOUR_GITHUB_TOKEN_ with the actual GitHub token value:
 - The project directory already contains a Docker file, which can be used to create a Docker image. Once the repository is cloned to your local machine, you can build the Docker image using the following command in the terminal:
   > `docker build -t gap_data_analysis .`
 - Having created the Docker image, you can access the program as a Docker container by running the following command in the terminal:
   > `docker run -p 8888:8888 --env-file .env gap_data_analysis`
 - Running this will initiate a Docker container mapped to the JupyterLab environment, accessible from port 8888 on the local host machine. The link to open the the JupyterLab in your web browser can be found in the terminal.
-- All running containers, along with the conatiner's name and id, can be found by running the following command in the terminal:
-  > `docker ps`
 - Terminating the container environment in JupyterLab can be done by using the `Ctrl+C` keys, or by running the following command in the terminal, replacing the _container_id_ with the actual id of the container:
   > `docker stop container_id`
 
