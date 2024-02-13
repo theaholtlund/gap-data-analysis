@@ -31,10 +31,12 @@ Open the project opened in your preferred IDE or Jupyter Notebook environment fo
 2. Data Analysis:
 
 - 05*data_analysis.ipynb: This file accesses the retrieved data from the \_collected_data* folder, and uses it to output interesting and noteworthy findings. It is primarily concerned with the bigger picture and situations that could be of concern to individuals managing or redistributing GAP.
+- It is important that you remember to **save the file** after running the notebook, in order to make the outputs available for export to HTML files, as well as for the Streamlit dashboard.
 
 3. Data Visualisation:
 
 - 06*data_visualisation.ipynb: This file accesses the retrieved data from the \_collected_data* folder, and uses it to visualise key findings in terms of trends and collaboration patterns. It is primarily concerned with data that is better interpreted when visualised, such as volume, contribution frequency and interaction networks.
+- It is important that you remember to **save the file** after running the notebook, in order to make the outputs available for export to HTML files, as well as for the Streamlit dashboard.
 
 4. Interacting with Dashboard:
 
