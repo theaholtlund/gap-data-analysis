@@ -30,11 +30,19 @@ def process_notebook_content(notebook_path):
 
     return output_html
 
-# Function to display outputs of notebook content
-def display_data_analysis_output(notebook_path):
-    output_html = process_notebook_content(notebook_path)
+# Function to display data analysis outputs
+def display_data_analysis_output():
+    output_html = process_notebook_content("notebooks/05_data_analysis.ipynb")
 
     st.write("Data analysis outputs:")
+    for output in output_html:
+        st.markdown(output, unsafe_allow_html=True)
+
+# Function to display data visualisation outputs
+def display_data_visualisation_output():
+    output_html = process_notebook_content("notebooks/06_data_visualisation.ipynb")
+
+    st.write("Data visualisation outputs:")
     for output in output_html:
         st.markdown(output, unsafe_allow_html=True)
 
@@ -43,22 +51,17 @@ def main():
     st.title("GitHub Data Analysis Dashboard")
 
     # Sidebar options
-    page = st.sidebar.selectbox("Select a page", ["Overview", "Repositories", "Community"])
+    page = st.sidebar.selectbox("Select a page", ["Data Analysis", "Data Visualisation"])
 
-    # Content overview
-    if page == "Overview":
-        st.header("Overview Page")
-        # Content overview
+    # Data analysis content
+    if page == "Data Analysis":
+        st.header("Data Analysis Page")
+        display_data_analysis_output()
 
-    # Repositories content
-    elif page == "Repositories":
-        st.header("Repositories Page")
-        display_data_analysis_output("notebooks/05_data_analysis.ipynb")
-        display_data_analysis_output("notebooks/06_data_visualisation.ipynb")
-
-    # Community content
-    elif page == "Community":
-        st.header("Community Page")
+    # Data visualisation content
+    elif page == "Data Visualisation":
+        st.header("Data Visualisation Page")
+        display_data_visualisation_output()
 
 # Check if script is being run directly, as the main program
 # If so, call the main() function to set up and run Streamlit dashboard
