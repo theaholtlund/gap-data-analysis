@@ -3,9 +3,8 @@ import os
 import nbformat
 import streamlit as st
 
-# Function to display data analysis outputs
-def display_data_analysis_output():
-    notebook_path = "notebooks/05_data_analysis.ipynb"
+# Function to read and process notebook content
+def process_notebook_content(notebook_path):
     output_html = []
 
     with open(notebook_path, "r", encoding="utf-8") as f:
@@ -29,10 +28,15 @@ def display_data_analysis_output():
                         if "Request limit for API Calls:" not in output_text:
                             output_html.append(f"<pre>{output_text}</pre>")
 
+    return output_html
+
+# Function to display outputs of notebook content
+def display_data_analysis_output(notebook_path):
+    output_html = process_notebook_content(notebook_path)
+
     st.write("Data analysis outputs:")
     for output in output_html:
         st.markdown(output, unsafe_allow_html=True)
-
 
 # Set up Streamlit dashboard with page navigation
 def main():
@@ -49,7 +53,8 @@ def main():
     # Repositories content
     elif page == "Repositories":
         st.header("Repositories Page")
-        display_data_analysis_output()
+        display_data_analysis_output("notebooks/05_data_analysis.ipynb")
+        display_data_analysis_output("notebooks/06_data_visualisation.ipynb")
 
     # Community content
     elif page == "Community":
