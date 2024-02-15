@@ -5,7 +5,7 @@ import streamlit as st
 
 # Function to read and process notebook content
 def process_notebook_content(notebook_path):
-    output_html = []
+    outputs = []
 
     with open(notebook_path, "r", encoding="utf-8") as f:
         notebook_content = f.read()
@@ -17,18 +17,17 @@ def process_notebook_content(notebook_path):
             for output in cell.outputs:
                 if output.output_type == "display_data":
                     if "data" in output and "text/html" in output.data:
-                        output_html.append(output.data["text/html"])
+                        outputs.append(output.data["text/html"])
+                    elif "data" in output and "image/png" in output.data:
+                        image_data = output.data["image/png"]
+                        image_html = f'<img src="data:image/png;base64,{image_data}" />\n'
+                        outputs.append(image_html)
                 elif output.output_type == "execute_result":
                     if "data" in output and "text/plain" in output.data:
                         output_text = output.data["text/plain"]
-                        output_html.append(f"<pre>{output_text}</pre>")
-                elif output.output_type == "stream":
-                    if "text" in output:
-                        output_text = output.text
-                        if "Request limit for API Calls:" not in output_text:
-                            output_html.append(f"<pre>{output_text}</pre>")
+                        outputs.append(f"<pre>{output_text}</pre>")
 
-    return output_html
+    return outputs
 
 # Function to display data analysis outputs
 def display_data_analysis_output():
@@ -40,10 +39,13 @@ def display_data_analysis_output():
 
 # Function to display data visualisation outputs
 def display_data_visualisation_output():
-    output_html = process_notebook_content("notebooks/06_data_visualisation.ipynb")
+    notebook_path = "notebooks/06_data_visualisation.ipynb"
+    st.write(f"Visualisation Notebook Path: {notebook_path}")
+
+    outputs = process_notebook_content(notebook_path)
 
     st.write("Data visualisation outputs:")
-    for output in output_html:
+    for output in outputs:
         st.markdown(output, unsafe_allow_html=True)
 
 # Set up Streamlit dashboard with page navigation
