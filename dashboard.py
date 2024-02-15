@@ -33,18 +33,15 @@ def process_notebook_content(notebook_path):
 def display_data_analysis_output():
     output_html = process_notebook_content("notebooks/05_data_analysis.ipynb")
 
-    st.write("Data analysis outputs:")
     for output in output_html:
         st.markdown(output, unsafe_allow_html=True)
 
 # Function to display data visualisation outputs
 def display_data_visualisation_output():
     notebook_path = "notebooks/06_data_visualisation.ipynb"
-    st.write(f"Visualisation Notebook Path: {notebook_path}")
 
     outputs = process_notebook_content(notebook_path)
 
-    st.write("Data visualisation outputs:")
     for output in outputs:
         st.markdown(output, unsafe_allow_html=True)
 
@@ -57,12 +54,12 @@ def main():
 
     # Data analysis content
     if page == "Data Analysis":
-        st.header("Data Analysis Page")
+        st.header("Data Analysis Outputs")
         display_data_analysis_output()
 
     # Data visualisation content
     elif page == "Data Visualisation":
-        st.header("Data Visualisation Page")
+        st.header("Data Visualisation Outputs")
         display_data_visualisation_output()
 
 # Check if script is being run directly, as the main program
