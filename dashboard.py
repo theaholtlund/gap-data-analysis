@@ -7,25 +7,28 @@ import streamlit as st
 def process_notebook_content(notebook_path):
     outputs = []
 
-    with open(notebook_path, "r", encoding="utf-8") as f:
-        notebook_content = f.read()
+    try:
+        with open(notebook_path, "r", encoding="utf-8") as f:
+            notebook_content = f.read()
 
-    notebook = nbformat.reads(notebook_content, as_version=4)
+        notebook = nbformat.reads(notebook_content, as_version=4)
 
-    for cell in notebook.cells:
-        if cell.cell_type == "code" and cell.get("outputs", []):
-            for output in cell.outputs:
-                if output.output_type == "display_data":
-                    if "data" in output and "text/html" in output.data:
-                        outputs.append(output.data["text/html"])
-                    elif "data" in output and "image/png" in output.data:
-                        image_data = output.data["image/png"]
-                        image_html = f'<img src="data:image/png;base64,{image_data}" />\n'
-                        outputs.append(image_html)
-                elif output.output_type == "execute_result":
-                    if "data" in output and "text/plain" in output.data:
-                        output_text = output.data["text/plain"]
-                        outputs.append(f"<pre>{output_text}</pre>")
+        for cell in notebook.cells:
+            if cell.cell_type == "code" and cell.get("outputs", []):
+                for output in cell.outputs:
+                    if output.output_type == "display_data":
+                        if "data" in output and "text/html" in output.data:
+                            outputs.append(output.data["text/html"])
+                        elif "data" in output and "image/png" in output.data:
+                            image_data = output.data["image/png"]
+                            image_html = f'<img src="data:image/png;base64,{image_data}" />\n'
+                            outputs.append(image_html)
+                    elif output.output_type == "execute_result":
+                        if "data" in output and "text/plain" in output.data:
+                            output_text = output.data["text/plain"]
+                            outputs.append(f"<pre>{output_text}</pre>")
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
 
     return outputs
 
