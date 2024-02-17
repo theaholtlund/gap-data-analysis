@@ -36,15 +36,21 @@ def process_notebook_content(notebook_path):
 def display_data_analysis_output(notebook_path):
     output_html = process_notebook_content(notebook_path)
 
-    for output in output_html:
-        st.markdown(output, unsafe_allow_html=True)
+    if output_html:
+        for output in output_html:
+            st.markdown(output, unsafe_allow_html=True)
+    else:
+        st.write("No notebook uploaded. Please upload a notebook for analysis.")
 
 # Function to display data visualisation outputs
 def display_data_visualisation_output(notebook_path):
     outputs = process_notebook_content(notebook_path)
 
-    for output in outputs:
-        st.markdown(output, unsafe_allow_html=True)
+    if outputs:
+        for output in outputs:
+            st.markdown(output, unsafe_allow_html=True)
+    else:
+        st.write("No notebook uploaded. Please upload a notebook for visualisation.")
 
 # Set up Streamlit dashboard with page navigation
 def main():
@@ -53,7 +59,7 @@ def main():
     # Sidebar options
     page = st.sidebar.selectbox("Select a page", ["Data Analysis", "Data Visualisation"])
 
-    # If data Analysis selected
+    # If data analysis selected
     if page == "Data Analysis":
         st.header("Data Analysis Outputs")
         
@@ -63,10 +69,10 @@ def main():
             # Process and display uploaded notebook
             display_data_analysis_output(uploaded_file)
         else:
-            # Display default notebook
+            # Display message when no notebook is uploaded
             display_data_analysis_output("notebooks/05_data_analysis.ipynb")
 
-    # If data Visualisation selected
+    # If data visualisation selected
     elif page == "Data Visualisation":
         st.header("Data Visualisation Outputs")
         
@@ -76,7 +82,7 @@ def main():
             # Process and display uploaded notebook
             display_data_visualisation_output(uploaded_file)
         else:
-            # Display default notebook
+            # Display message when no notebook is uploaded
             display_data_visualisation_output("notebooks/06_data_visualisation.ipynb")
 
 # Check if script is being run directly, as the main program
