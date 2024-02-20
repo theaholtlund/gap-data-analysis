@@ -6,6 +6,7 @@ import streamlit as st
 # Function to read and process notebook content
 def process_notebook_content(notebook_path):
     outputs = []
+    code_cells = []
 
     try:
         with open(notebook_path, "r", encoding="utf-8") as f:
@@ -27,28 +28,36 @@ def process_notebook_content(notebook_path):
                         if "data" in output and "text/plain" in output.data:
                             output_text = output.data["text/plain"]
                             outputs.append(f"<pre>{output_text}</pre>")
+            elif cell.cell_type == "code":
+                code_cells.append(cell.source)
     except Exception as e:
         st.error(f"An error occurred: {e}")
 
-    return outputs
+    return outputs, code_cells
 
-# Function to display data analysis outputs
+# Function to display data analysis outputs and source code
 def display_data_analysis_output(notebook_path):
-    output_html = process_notebook_content(notebook_path)
-
-    if output_html:
-        for output in output_html:
-            st.markdown(output, unsafe_allow_html=True)
-    else:
-        st.write("No notebook uploaded. Please upload a notebook for analysis.")
-
-# Function to display data visualisation outputs
-def display_data_visualisation_output(notebook_path):
-    outputs = process_notebook_content(notebook_path)
+    outputs, code_cells = process_notebook_content(notebook_path)
 
     if outputs:
         for output in outputs:
             st.markdown(output, unsafe_allow_html=True)
+        st.subheader("Source Code")
+        for code_cell in code_cells:
+            st.code(code_cell)
+    else:
+        st.write("No notebook uploaded. Please upload a notebook for analysis.")
+
+# Function to display data visualisation outputs and source code
+def display_data_visualisation_output(notebook_path):
+    outputs, code_cells = process_notebook_content(notebook_path)
+
+    if outputs:
+        for output in outputs:
+            st.markdown(output, unsafe_allow_html=True)
+        st.subheader("Source Code")
+        for code_cell in code_cells:
+            st.code(code_cell)
     else:
         st.write("No notebook uploaded. Please upload a notebook for visualisation.")
 
