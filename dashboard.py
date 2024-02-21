@@ -56,7 +56,7 @@ def display_data_visualisation_output(notebook_path):
         st.write("No notebook uploaded. Please upload a notebook for visualisation.")
 
 # Function to download HTML file containing outputs
-def download_outputs_html(notebook_path):
+def download_outputs_html(notebook_path, combined=False):
     outputs = process_notebook_content(notebook_path)
 
     # Create HTML content
@@ -71,7 +71,10 @@ def download_outputs_html(notebook_path):
     # Download HTML file
     with open("outputs.html", "rb") as f:
         b64 = base64.b64encode(f.read()).decode()
-        href = f'<a href="data:file/html;base64,{b64}" download="outputs.html">Download HTML outputs</a>'
+        if combined:
+            href = f'<a href="data:file/html;base64,{b64}" download="combined_outputs.html">Download Combined Outputs</a>'
+        else:
+            href = f'<a href="data:file/html;base64,{b64}" download="outputs.html">Download Outputs</a>'
         st.markdown(href, unsafe_allow_html=True)
 
 # Set up Streamlit dashboard with page navigation
@@ -105,11 +108,18 @@ def main():
         if uploaded_file is not None:
             # Process and display uploaded notebook
             display_data_visualisation_output(uploaded_file)
-            # Offer download option for visualisation outputs
+            # Offer download option for visualization outputs
             download_outputs_html(uploaded_file)
         else:
             # Display message when no notebook is uploaded
             display_data_visualisation_output("notebooks/06_data_visualisation.ipynb")
+
+    # Download both analysis and visualization outputs combined
+    if st.button("Download Combined Outputs"):
+        if uploaded_file is not None:
+            download_outputs_html(uploaded_file, combined=True)
+        else:
+            st.write("Please upload a notebook first.")
 
 # Check if script is being run directly, as the main program
 # If so, call the main() function to set up and run Streamlit dashboard
