@@ -2,6 +2,8 @@
 import os
 import nbformat
 import streamlit as st
+from io import BytesIO
+import base64
 
 # Function to read and process notebook content
 def process_notebook_content(notebook_path):
@@ -49,9 +51,28 @@ def display_data_visualisation_output(notebook_path):
     if outputs:
         for output in outputs:
             st.markdown(output, unsafe_allow_html=True)
-            st.write("---")  # Adding spacing between visualization outputs
+            st.write("---")  # Adding spacing between visualisation outputs
     else:
         st.write("No notebook uploaded. Please upload a notebook for visualisation.")
+
+# Function to download HTML file containing outputs
+def download_outputs_html(notebook_path):
+    outputs = process_notebook_content(notebook_path)
+
+    # Create HTML content
+    html_content = ""
+    for output in outputs:
+        html_content += output + "\n<hr>\n"
+
+    # Create HTML file
+    with open("outputs.html", "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+    # Download HTML file
+    with open("outputs.html", "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+        href = f'<a href="data:file/html;base64,{b64}" download="outputs.html">Download HTML outputs</a>'
+        st.markdown(href, unsafe_allow_html=True)
 
 # Set up Streamlit dashboard with page navigation
 def main():
@@ -69,6 +90,8 @@ def main():
         if uploaded_file is not None:
             # Process and display uploaded notebook
             display_data_analysis_output(uploaded_file)
+            # Offer download option for analysis outputs
+            download_outputs_html(uploaded_file)
         else:
             # Display message when no notebook is uploaded
             display_data_analysis_output("notebooks/05_data_analysis.ipynb")
@@ -82,6 +105,8 @@ def main():
         if uploaded_file is not None:
             # Process and display uploaded notebook
             display_data_visualisation_output(uploaded_file)
+            # Offer download option for visualisation outputs
+            download_outputs_html(uploaded_file)
         else:
             # Display message when no notebook is uploaded
             display_data_visualisation_output("notebooks/06_data_visualisation.ipynb")
