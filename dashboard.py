@@ -39,7 +39,7 @@ def display_data_analysis_output(uploaded_file):
         for output in outputs:
             st.markdown(output, unsafe_allow_html=True)
     else:
-        st.write("No notebook uploaded. Please upload a notebook for analysis.")
+        st.write("No analysis outputs to display.")
 
 # Function to display data visualisation outputs with spacing in between
 def display_data_visualisation_output(uploaded_file):
@@ -49,9 +49,9 @@ def display_data_visualisation_output(uploaded_file):
     if outputs:
         for output in outputs:
             st.markdown(output, unsafe_allow_html=True)
-            st.write("---")  # Adding spacing between visualisation outputs
+            st.write("---")
     else:
-        st.write("No notebook uploaded. Please upload a notebook for visualisation.")
+        st.write("No visualisation outputs to display.")
 
 # Function to download HTML file containing outputs
 def download_outputs_html(uploaded_file, combined=False):
@@ -95,8 +95,12 @@ def main():
             # Offer download option for analysis outputs
             download_outputs_html(uploaded_file)
         else:
-            # Display message when no notebook is uploaded
-            st.write("No notebook uploaded. Please upload a notebook for analysis.")
+            # Display default notebook if no upload
+            with open("notebooks/05_data_analysis.ipynb", "r", encoding="utf-8") as f:
+                notebook_content = f.read()
+            outputs = process_notebook_content(notebook_content)
+            for output in outputs:
+                st.markdown(output, unsafe_allow_html=True)
 
     # If data visualisation selected
     elif page == "Data Visualisation":
@@ -107,13 +111,17 @@ def main():
         if uploaded_file is not None:
             # Process and display uploaded notebook
             display_data_visualisation_output(uploaded_file)
-            # Offer download option for visualization outputs
+            # Offer download option for visualisation outputs
             download_outputs_html(uploaded_file)
         else:
-            # Display message when no notebook is uploaded
-            st.write("No notebook uploaded. Please upload a notebook for visualisation.")
+            # Display default notebook if no upload
+            with open("notebooks/06_data_visualisation.ipynb", "r", encoding="utf-8") as f:
+                notebook_content = f.read()
+            outputs = process_notebook_content(notebook_content)
+            for output in outputs:
+                st.markdown(output, unsafe_allow_html=True)
 
-    # Download both analysis and visualization outputs combined
+    # Download both analysis and visualisation outputs combined
     if st.button("Download Combined Outputs"):
         if uploaded_file is not None:
             download_outputs_html(uploaded_file, combined=True)
