@@ -31,8 +31,12 @@ def process_notebook_content(notebook_content):
     return outputs
 
 # Function to display data analysis outputs
-def display_data_analysis_output(uploaded_file):
-    notebook_content = uploaded_file.getvalue().decode("utf-8")
+def display_data_analysis_output(uploaded_file=None):
+    if uploaded_file:
+        notebook_content = uploaded_file.getvalue().decode("utf-8")
+    else:
+        with open("notebooks/05_data_analysis.ipynb", "r", encoding="utf-8") as f:
+            notebook_content = f.read()
     outputs = process_notebook_content(notebook_content)
 
     if outputs:
@@ -42,8 +46,12 @@ def display_data_analysis_output(uploaded_file):
         st.write("No analysis outputs to display.")
 
 # Function to display data visualisation outputs with spacing in between
-def display_data_visualisation_output(uploaded_file):
-    notebook_content = uploaded_file.getvalue().decode("utf-8")
+def display_data_visualisation_output(uploaded_file=None):
+    if uploaded_file:
+        notebook_content = uploaded_file.getvalue().decode("utf-8")
+    else:
+        with open("notebooks/06_data_visualisation.ipynb", "r", encoding="utf-8") as f:
+            notebook_content = f.read()
     outputs = process_notebook_content(notebook_content)
 
     if outputs:
@@ -54,8 +62,18 @@ def display_data_visualisation_output(uploaded_file):
         st.write("No visualisation outputs to display.")
 
 # Function to download HTML file containing outputs
-def download_outputs_html(uploaded_file, combined=False):
-    notebook_content = uploaded_file.getvalue().decode("utf-8")
+def download_outputs_html(uploaded_file=None):
+    if uploaded_file:
+        notebook_content = uploaded_file.getvalue().decode("utf-8")
+    else:
+        if st.session_state.page == "Data Analysis":
+            with open("notebooks/05_data_analysis.ipynb", "r", encoding="utf-8") as f:
+                notebook_content = f.read()
+            file_name = "outputs_analysis.html"
+        elif st.session_state.page == "Data Visualisation":
+            with open("notebooks/06_data_visualisation.ipynb", "r", encoding="utf-8") as f:
+                notebook_content = f.read()
+            file_name = "outputs_visualisation.html"
     outputs = process_notebook_content(notebook_content)
 
     # Create HTML content
@@ -63,68 +81,40 @@ def download_outputs_html(uploaded_file, combined=False):
     for output in outputs:
         html_content += output + "\n<hr>\n"
 
-    # Create HTML file
-    with open("outputs.html", "w", encoding="utf-8") as f:
-        f.write(html_content)
+    # Create BytesIO object
+    b64 = base64.b64encode(html_content.encode()).decode()
+    bytes_obj = BytesIO(base64.b64decode(b64))
 
-    # Download HTML file
-    with open("outputs.html", "rb") as f:
-        b64 = base64.b64encode(f.read()).decode()
-        if combined:
-            href = f'<a href="data:file/html;base64,{b64}" download="combined_outputs.html">Download Combined Outputs</a>'
-        else:
-            href = f'<a href="data:file/html;base64,{b64}" download="outputs.html">Download Outputs</a>'
-        st.markdown(href, unsafe_allow_html=True)
+    # Download file
+    href = f'data:text/html;base64,{b64}'
+    st.markdown(f'<a href="{href}" download="{file_name}">Download Outputs</a>', unsafe_allow_html=True)
 
 # Set up Streamlit dashboard with page navigation
 def main():
     st.title("GitHub Data Analysis Dashboard")
 
     # Sidebar options
-    page = st.sidebar.selectbox("Select a page", ["Data Analysis", "Data Visualisation"])
+    st.session_state.page = st.sidebar.selectbox("Select a page", ["Data Analysis", "Data Visualisation"])
 
     # If data analysis selected
-    if page == "Data Analysis":
+    if st.session_state.page == "Data Analysis":
         st.header("Data Analysis Outputs")
 
         # Allow user to upload a notebook for data analysis
-        uploaded_file_analysis = st.file_uploader("Upload a notebook for Data Analysis", type=["ipynb"])
-        if uploaded_file_analysis is not None:
-            display_data_analysis_output(uploaded_file_analysis)
-            download_outputs_html(uploaded_file_analysis)
-        else:
-            # Display default notebook for data analysis
-            with open("notebooks/05_data_analysis.ipynb", "r", encoding="utf-8") as f:
-                notebook_content = f.read()
-            outputs = process_notebook_content(notebook_content)
-            for output in outputs:
-                st.markdown(output, unsafe_allow_html=True)
+        uploaded_file = st.file_uploader("Upload a notebook for Data Analysis", type=["ipynb"])
+        display_data_analysis_output(uploaded_file)
 
     # If data visualisation selected
-    elif page == "Data Visualisation":
+    elif st.session_state.page == "Data Visualisation":
         st.header("Data Visualisation Outputs")
 
         # Allow user to upload a notebook for data visualisation
-        uploaded_file_visualisation = st.file_uploader("Upload a notebook for Data Visualisation", type=["ipynb"])
-        if uploaded_file_visualisation is not None:
-            display_data_visualisation_output(uploaded_file_visualisation)
-            download_outputs_html(uploaded_file_visualisation)
-        else:
-            # Display default notebook for data visualisation
-            with open("notebooks/06_data_visualisation.ipynb", "r", encoding="utf-8") as f:
-                notebook_content = f.read()
-            outputs = process_notebook_content(notebook_content)
-            for output in outputs:
-                st.markdown(output, unsafe_allow_html=True)
+        uploaded_file = st.file_uploader("Upload a notebook for Data Visualisation", type=["ipynb"])
+        display_data_visualisation_output(uploaded_file)
 
-    # Download both analysis and visualisation outputs combined
-    if st.button("Download Combined Outputs"):
-        if page == "Data Analysis" and uploaded_file_analysis is not None:
-            download_outputs_html(uploaded_file_analysis, combined=True)
-        elif page == "Data Visualisation" and uploaded_file_visualisation is not None:
-            download_outputs_html(uploaded_file_visualisation, combined=True)
-        else:
-            st.write("Please upload a notebook first.")
+    # Download outputs
+    if st.button("Generate HTML File of Outputs"):
+        download_outputs_html(uploaded_file)
 
 # Check if script is being run directly, as the main program
 # If so, call the main() function to set up and run Streamlit dashboard
