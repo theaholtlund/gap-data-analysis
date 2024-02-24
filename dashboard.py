@@ -1,18 +1,14 @@
 # Import required modules and libraries
-import os
 import nbformat
 import streamlit as st
 from io import BytesIO
 import base64
 
 # Function to read and process notebook content
-def process_notebook_content(notebook_path):
+def process_notebook_content(notebook_content):
     outputs = []
 
     try:
-        with open(notebook_path, "r", encoding="utf-8") as f:
-            notebook_content = f.read()
-
         notebook = nbformat.reads(notebook_content, as_version=4)
 
         for cell in notebook.cells:
@@ -35,8 +31,9 @@ def process_notebook_content(notebook_path):
     return outputs
 
 # Function to display data analysis outputs
-def display_data_analysis_output(notebook_path):
-    outputs = process_notebook_content(notebook_path)
+def display_data_analysis_output(uploaded_file):
+    notebook_content = uploaded_file.getvalue().decode("utf-8")
+    outputs = process_notebook_content(notebook_content)
 
     if outputs:
         for output in outputs:
@@ -45,8 +42,9 @@ def display_data_analysis_output(notebook_path):
         st.write("No notebook uploaded. Please upload a notebook for analysis.")
 
 # Function to display data visualisation outputs with spacing in between
-def display_data_visualisation_output(notebook_path):
-    outputs = process_notebook_content(notebook_path)
+def display_data_visualisation_output(uploaded_file):
+    notebook_content = uploaded_file.getvalue().decode("utf-8")
+    outputs = process_notebook_content(notebook_content)
 
     if outputs:
         for output in outputs:
@@ -56,8 +54,9 @@ def display_data_visualisation_output(notebook_path):
         st.write("No notebook uploaded. Please upload a notebook for visualisation.")
 
 # Function to download HTML file containing outputs
-def download_outputs_html(notebook_path, combined=False):
-    outputs = process_notebook_content(notebook_path)
+def download_outputs_html(uploaded_file, combined=False):
+    notebook_content = uploaded_file.getvalue().decode("utf-8")
+    outputs = process_notebook_content(notebook_content)
 
     # Create HTML content
     html_content = ""
@@ -97,7 +96,7 @@ def main():
             download_outputs_html(uploaded_file)
         else:
             # Display message when no notebook is uploaded
-            display_data_analysis_output("notebooks/05_data_analysis.ipynb")
+            st.write("No notebook uploaded. Please upload a notebook for analysis.")
 
     # If data visualisation selected
     elif page == "Data Visualisation":
@@ -112,7 +111,7 @@ def main():
             download_outputs_html(uploaded_file)
         else:
             # Display message when no notebook is uploaded
-            display_data_visualisation_output("notebooks/06_data_visualisation.ipynb")
+            st.write("No notebook uploaded. Please upload a notebook for visualisation.")
 
     # Download both analysis and visualization outputs combined
     if st.button("Download Combined Outputs"):
