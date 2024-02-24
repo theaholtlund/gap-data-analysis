@@ -86,16 +86,14 @@ def main():
     # If data analysis selected
     if page == "Data Analysis":
         st.header("Data Analysis Outputs")
-        
-        # Allow user to upload a notebook
-        uploaded_file = st.file_uploader("Upload a notebook", type=["ipynb"])
-        if uploaded_file is not None:
-            # Process and display uploaded notebook
-            display_data_analysis_output(uploaded_file)
-            # Offer download option for analysis outputs
-            download_outputs_html(uploaded_file)
+
+        # Allow user to upload a notebook for data analysis
+        uploaded_file_analysis = st.file_uploader("Upload a notebook for Data Analysis", type=["ipynb"])
+        if uploaded_file_analysis is not None:
+            display_data_analysis_output(uploaded_file_analysis)
+            download_outputs_html(uploaded_file_analysis)
         else:
-            # Display default notebook if no upload
+            # Display default notebook for data analysis
             with open("notebooks/05_data_analysis.ipynb", "r", encoding="utf-8") as f:
                 notebook_content = f.read()
             outputs = process_notebook_content(notebook_content)
@@ -105,16 +103,14 @@ def main():
     # If data visualisation selected
     elif page == "Data Visualisation":
         st.header("Data Visualisation Outputs")
-        
-        # Allow user to upload a notebook
-        uploaded_file = st.file_uploader("Upload a notebook", type=["ipynb"])
-        if uploaded_file is not None:
-            # Process and display uploaded notebook
-            display_data_visualisation_output(uploaded_file)
-            # Offer download option for visualisation outputs
-            download_outputs_html(uploaded_file)
+
+        # Allow user to upload a notebook for data visualisation
+        uploaded_file_visualisation = st.file_uploader("Upload a notebook for Data Visualisation", type=["ipynb"])
+        if uploaded_file_visualisation is not None:
+            display_data_visualisation_output(uploaded_file_visualisation)
+            download_outputs_html(uploaded_file_visualisation)
         else:
-            # Display default notebook if no upload
+            # Display default notebook for data visualisation
             with open("notebooks/06_data_visualisation.ipynb", "r", encoding="utf-8") as f:
                 notebook_content = f.read()
             outputs = process_notebook_content(notebook_content)
@@ -123,8 +119,10 @@ def main():
 
     # Download both analysis and visualisation outputs combined
     if st.button("Download Combined Outputs"):
-        if uploaded_file is not None:
-            download_outputs_html(uploaded_file, combined=True)
+        if page == "Data Analysis" and uploaded_file_analysis is not None:
+            download_outputs_html(uploaded_file_analysis, combined=True)
+        elif page == "Data Visualisation" and uploaded_file_visualisation is not None:
+            download_outputs_html(uploaded_file_visualisation, combined=True)
         else:
             st.write("Please upload a notebook first.")
 
