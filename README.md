@@ -19,7 +19,7 @@ This project is completed as part of the CS5099: Dissertation in Computer Scienc
 
 ## Usage
 
-Open the project opened in your preferred IDE or Jupyter Notebook environment. The program can also be executed through Docker, as described further down in this file. The framework is composed of several Python files and Jupyter Notebooks, where the Python files are not intended to be accessed or modified in order to run the program. To retrieve the data, analyse its contents and visualise key relations, only the notebooks in the <em>notebooks<em> folder are needed. This folder has four files for data retrieval, one for data analysis and one for data visualisation, all named to reflect the order in which they are intended to be executed:
+Open the project opened in your preferred IDE or Jupyter Notebook environment. The program can also be executed through Docker, as described further down in this file. The framework is composed of several Python files and Jupyter Notebooks, where the Python files are not intended to be accessed or modified in order to run the program. To retrieve the data, analyse its contents and visualise key relations, only the notebooks in the _notebooks_ folder are needed. This folder has four files for data retrieval, one for data analysis and one for data visualisation, all named to reflect the order in which they are intended to be executed:
 
 1. Date Retrieval:
 
@@ -30,21 +30,19 @@ Open the project opened in your preferred IDE or Jupyter Notebook environment. T
 
 2. Data Analysis:
 
-- 05_data_analysis.ipynb: Accesses the retrieved data from the <em>collected_data</em>
-  folder, and uses it to output interesting and noteworthy findings. It is primarily concerned with the bigger picture and situations that could be of concern to individuals managing or redistributing GAP.
-- It is important that you **save the file** after running the notebook, in order to make the outputs available for export to HTML files, as well as for the Streamlit dashboard.
+- 05_data_analysis.ipynb: Accesses the retrieved data from the `collected_data` folder, and uses it to output interesting and noteworthy findings. It is primarily concerned with the bigger picture and situations that could be of concern to individuals managing or redistributing GAP.
+- It is important that you **save the file** after running the notebook, in order to make the outputs available for the Streamlit dashboard.
 
 3. Data Visualisation:
 
-- 06_data_visualisation.ipynb: Accesses the retrieved data from the <em>collected_data</em>
-  folder, and uses it to visualise key findings in terms of trends and collaboration patterns. It is primarily concerned with data that is better interpreted when visualised, such as volume, contribution frequency and interaction networks.
-- It is important that you **save the file** after running the notebook, in order to make the outputs available for export to HTML files, as well as for the Streamlit dashboard.
+- 06_data_visualisation.ipynb: Accesses the retrieved data from the `collected_data` folder, and uses it to visualise key findings in terms of trends and collaboration patterns. It is primarily concerned with data that is better interpreted when visualised, such as volume, contribution frequency and interaction networks.
+- It is important that you **save the file** after running the notebook, in order to make the outputs available for the Streamlit dashboard.
 
 4. Interacting with Dashboard:
 
 - To interact woth the project Streamlit dashboard, run the following command in the terminal to start the server:
   > `streamlit run dashboard.py`
-- Once the Streamlit server is running, you can access the dashboard by opening the URL provided in the terminal. If you want to make any changes or additions to the dashboard, Streamlit provides live reload, which automatically detects changes in the script and updates the dashboard in real-time. Therefore, there is no need to manually reload the Streamlit server.
+- Once the Streamlit server is running, you can access the dashboard by opening the URL provided in the terminal. If you want to make any changes or additions to the dashboard, Streamlit provides live reload, which automatically detects changes in the script and updates the dashboard in real-time. The dashboard allows for downloading the data analysis and visualisation outputs, as well as uploading other notebooks to display their outputs.
 
 ## Running the Framework with Docker
 
