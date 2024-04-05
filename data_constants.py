@@ -1,6 +1,4 @@
-# Defining constants for Data Analytics Framework for GAP Package Management
-
-# Import modules and modules from other project scripts
+# Import required libraries, modules and packages
 from setup.config import *
 
 # Constants for organisation

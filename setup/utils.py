@@ -1,6 +1,4 @@
-# Utilities for Data Analytics Framework for GAP Package Management
-
-# Import required libraries and packages
+# Import required libraries, modules and packages
 import os
 import time
 import json
@@ -8,7 +6,7 @@ from pathlib import Path
 from github import Github
 from datetime import datetime
 
-# Get the GitHub token and set it for the environment
+# Get and set GitHub token for the environment
 def get_github_token() -> str:
     """Get the GitHub token for user authorisation.
 
@@ -53,7 +51,6 @@ def wait_until_reset(reset_time: int) -> None:
     Returns:
         None        
     """
-
     # Convert UNIX timestamp to a datetime object
     reset_datetime = datetime.fromtimestamp(reset_time)
 
