@@ -5,7 +5,15 @@ from io import BytesIO
 import base64
 
 # Function to read and process notebook content
-def process_notebook_content(notebook_content):
+def process_notebook_content(notebook_content: str) -> list:
+    """Read and process notebook content.
+
+    Args:
+        notebook_content (str): Contents of the notebook.
+
+    Returns:
+        list: List of processed outputs.
+    """
     outputs = []
 
     try:
@@ -31,7 +39,15 @@ def process_notebook_content(notebook_content):
     return outputs
 
 # Function to display data analysis outputs
-def display_data_analysis_output(uploaded_file=None):
+def display_data_analysis_output(uploaded_file: BytesIO = None) -> None:
+    """Display data analysis outputs.
+
+    Args:
+        uploaded_file (BytesIO, optional): Uploaded notebook file. Defaults to None.
+
+    Returns:
+        None
+    """
     if uploaded_file:
         notebook_content = uploaded_file.getvalue().decode("utf-8")
     else:
@@ -46,7 +62,15 @@ def display_data_analysis_output(uploaded_file=None):
         st.write("No analysis outputs to display.")
 
 # Function to display data visualisation outputs with spacing in between
-def display_data_visualisation_output(uploaded_file=None):
+def display_data_visualisation_output(uploaded_file: BytesIO = None) -> None:
+    """Display data visualisation outputs with spacing in between.
+
+    Args:
+        uploaded_file (BytesIO, optional): Uploaded notebook file. Defaults to None.
+
+    Returns:
+        None
+    """
     if uploaded_file:
         notebook_content = uploaded_file.getvalue().decode("utf-8")
     else:
@@ -62,7 +86,15 @@ def display_data_visualisation_output(uploaded_file=None):
         st.write("No visualisation outputs to display.")
 
 # Function to download HTML file containing outputs
-def download_outputs_html(uploaded_file=None):
+def download_outputs_html(uploaded_file: BytesIO = None) -> None:
+    """Download HTML file containing outputs.
+
+    Args:
+        uploaded_file (BytesIO, optional): Uploaded notebook file. Defaults to None.
+
+    Returns:
+        None
+    """
     if uploaded_file:
         notebook_content = uploaded_file.getvalue().decode("utf-8")
     else:
