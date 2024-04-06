@@ -1,4 +1,5 @@
 # Import required modules and libraries
+import os
 import nbformat
 import streamlit as st
 from io import BytesIO
@@ -87,7 +88,7 @@ def display_data_visualisation_output(uploaded_file: BytesIO = None) -> None:
 
 # Function to download HTML file containing outputs
 def download_outputs_html(uploaded_file: BytesIO = None) -> None:
-    """Download HTML file containing outputs.
+    """Save HTML file containing outputs to downloaded data directory.
 
     Args:
         uploaded_file (BytesIO, optional): Uploaded notebook file. Defaults to None.
@@ -108,18 +109,21 @@ def download_outputs_html(uploaded_file: BytesIO = None) -> None:
             file_name = "outputs_visualisation.html"
     outputs = process_notebook_content(notebook_content)
 
+    # Ensure directory for downloaded data exists
+    download_directory = "downloaded_data"
+    os.makedirs(download_directory, exist_ok=True)
+
     # Create HTML content
     html_content = ""
     for output in outputs:
         html_content += output + "\n<hr>\n"
-
-    # Create BytesIO object
-    b64 = base64.b64encode(html_content.encode()).decode()
-    bytes_obj = BytesIO(base64.b64decode(b64))
-
-    # Download file
-    href = f'data:text/html;base64,{b64}'
-    st.markdown(f'<a href="{href}" download="{file_name}">Download Outputs</a>', unsafe_allow_html=True)
+    
+    # Save the file
+    file_path = os.path.join(download_directory, file_name)
+    with open(file_path, "w", encoding="utf-8") as file:
+        file.write(html_content)
+    
+    st.success(f"File saved in {file_path}")
 
 # Set up Streamlit dashboard with page navigation
 def main():
