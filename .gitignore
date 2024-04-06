@@ -3,3 +3,4 @@
 __pycache__/
 notebooks/collected_data/*
 !notebooks/collected_data/README.md
+downloaded_data
