@@ -42,7 +42,8 @@ Open the project in your preferred IDE or Jupyter Notebook environment. The prog
 
 - To interact woth the project Streamlit dashboard, run the following command in the terminal to start the server:
   > `streamlit run dashboard.py`
-- Once the Streamlit server is running, you can access the dashboard by opening the URL provided in the terminal. If you want to make any changes or additions to the dashboard, Streamlit provides live reload, which automatically detects changes in the script and updates the dashboard in real-time. The dashboard allows for downloading the data analysis and visualisation outputs, as well as uploading other notebooks of identical style to display outputs.
+- Once the Streamlit server is running, you can access the dashboard by opening the URL provided in the terminal. If you want to make any changes or additions to the dashboard, Streamlit provides live reload, which automatically detects changes in the script and updates the dashboard in real-time.
+- The dashboard allows for downloading outputs, as well as uploading other notebooks of identical style to display outputs. Downloaded outputs will be saved to a project folder created upon download, called `downloaded_data`.
 
 ## Running the Framework with Docker
 
