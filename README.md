@@ -23,19 +23,19 @@ Open the project in your preferred Jupyter Notebook environment. The program can
 
 1. Data Retrieval:
 
-- **01_get_repo_data.ipynb**: Retrieves data in regards to repository analysis and visualisation. It is concerned with statistical analysis of the individual repositories hosted by GAP on GitHub.
-- **02_get_monitoring_data.ipynb**: Retrieves data in regards to monitoring the current state of GAP from a distribution and redistribution perspective. It is concerned with metrics related to the GAP package distribution repository on GitHub.
-- **03_get_testing_data.ipynb**: Retrieves data in regards to tested versions, required version and GitHub Actions for the GAP package repositories. It pulls data on logic, consistency and discrepancies related to GAP versions for the given package.
-- **04_get_community_data.ipynb**: Retrieves data in regards to the GAP community, retrieving data related to authors, issue submitters and collaboration, investigating trends and interactions.
+- `01_get_repo_data.ipynb`: Retrieves data in regards to repository analysis and visualisation. It is concerned with statistical analysis of the individual repositories hosted by GAP on GitHub.
+- `02_get_monitoring_data.ipynb`: Retrieves data in regards to monitoring the current state of GAP from a distribution and redistribution perspective. It is concerned with metrics related to the GAP package distribution repository on GitHub.
+- `03_get_testing_data.ipynb`: Retrieves data in regards to tested versions, required version and GitHub Actions for the GAP package repositories. It pulls data on logic, consistency and discrepancies related to GAP versions for the given package.
+- `04_get_community_data.ipynb`: Retrieves data in regards to the GAP community, retrieving data related to authors, issue submitters and collaboration, investigating trends and interactions.
 
 2. Data Analysis:
 
-- **05_data_analysis.ipynb**: Accesses the retrieved data from the `collected_data` folder, and uses it to output findings. Primarily concerned with the bigger picture and analytical outputs in text format.
+- `05_data_analysis.ipynb`: Accesses the retrieved data from the `collected_data` folder, and uses it to output findings. Primarily concerned with the bigger picture and analytical outputs in text format.
 - It is important that you **save the file** after running the notebook, to make the outputs available in the Streamlit dashboard.
 
 3. Data Visualisation:
 
-- **06_data_visualisation.ipynb**: Accesses the retrieved data from the `collected_data` folder, and uses it to visualise findings. Primarily concerned with data that is easier explained and interpreted when visualised.
+- `06_data_visualisation.ipynb`: Accesses the retrieved data from the `collected_data` folder, and uses it to visualise findings. Primarily concerned with data that is easier explained and interpreted when visualised.
 - It is important that you **save the file** after running the notebook, to make the outputs available in the Streamlit dashboard.
 
 4. Interacting with Dashboard:
